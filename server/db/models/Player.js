@@ -23,4 +23,11 @@ const Player = db.define('player', {
   },
 });
 
+Player.prototype.increaseWins = async function () {
+  await this.increment({
+    wins: 1
+  })
+};
+
+
 module.exports = Player;
