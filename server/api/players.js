@@ -43,7 +43,7 @@ router.put('/:playerName', async (req, res, next) => {
     const player = await Player.findOne({
       where: { name: name },
     });
-    player.increaseWins() //have to reload to see changes
+    player.increaseWins() 
     await player.reload();
     res.json(player);
   } catch (err) {
