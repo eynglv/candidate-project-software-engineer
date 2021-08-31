@@ -1,77 +1,40 @@
-# FS-App-Template
+## Introduction
 
-## Setup
+Welcome to Aspen Capital's Software Engineer challenge. This assignment will help us better assess your technical and design skills. We recommend that you focus on the requirements listed below, and if time permitting, work on any additional features of your own choosing. These additional features can be new, functional pieces within the application or even relevant design artifacts.
 
-To use this as boilerplate, you'll need to take the following steps:
+## Background
 
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+Your task is to implement an application that plays the card game of [War](https://en.wikipedia.org/wiki/War_(card_game))
 
-* Now you will have to add the fs-app-template as a remote and merge it into your own repository.
+Use the rules [here](https://bicyclecards.com/how-to-play/war/)
 
-```
-git remote add boilermaker https://github.com/FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
+## Requirements
 
-## Customize
+### High Level
 
-Now that you've got the code, follow these steps to get acclimated:
+* Create a RESTful service with two endpoints:
 
-* Update project name and description in `package.json`
-* `npm install`
-* Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-* These commands will create both your **development** and **test** databases
+	* An endpoint to start a game. Two simulated players will play out the game.
+	* An endpoint to get lifetime wins for each player stored in a database.
 
-```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
-```
+* You should include some basic tests along with the application code.
 
-* By default, running `npm test` will use your test database, while
-  regular development uses development database
+### Technical
 
-## Start
+* The service can be created in the language/framework of your choice.
+* You can use any db technology you like.
 
-Sync and seed your database by running `npm run seed`. Running `npm run start:dev` will make great things happen!
+Bonuses for providing:
 
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)
+* A Docker image or a link to a cloud deployment of the service.
+* A simple UI showing the game being played.
+* You can also implement variations of the basic game if you have time.
 
+## Submission
+* Your submission should be accessible in a public git repository that includes a README.md with all the pertinent information of how to run your application. 
+The expectation is that we can easily follow the steps provided and run the application without any guesswork.
+* If your submission does include additional artifacts that are not represented within the repository - the README should provide information on how to retrieve and access these items.
 
-### Heroku
+* Details on anything further that you would like to achieve given more time, including any trade-offs that you may have made
 
-1.  Set up the [Heroku command line tools][heroku-cli]
-2.  `heroku login`
-3.  Add a git remote for heroku:
-
-[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli
-
-* **If you are creating a new app...**
-
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku config:set JWT=<your secret here!>` to set a secret for JWT signing
-
-Database Setup
-
-  3.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno (This creates your production database)
-
-  4.  `heroku config:set SEED=true` to get heroku to sync and seed your database
-
-  5.   note everytime your app restarts, the database tables will be dropped and re-created. To avoid this you can `config:unset SEED`
-
-
-* **If you already have a Heroku app...**
-
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
-
-
-Now, you should be deployed!
+Good luck and thank you for your time - we look forward to seeing your submission.
