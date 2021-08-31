@@ -44,6 +44,7 @@ router.put('/:playerName', async (req, res, next) => {
       where: { name: name },
     });
     player.increaseWins() //have to reload to see changes
+    await player.reload();
     res.json(player);
   } catch (err) {
     next(err);

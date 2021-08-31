@@ -24,9 +24,7 @@ const Player = db.define('player', {
 });
 
 Player.prototype.increaseWins = async function () {
-  await this.increment({
-    wins: 1
-  })
+  await this.increment('wins')
 };
 
 
