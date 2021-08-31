@@ -64,7 +64,7 @@ class WarGame {
     this.playerTwo = playerTwo;
     this.playerOneHand = [];
     this.playerTwoHand = [];
-    this.playerIds = {}
+    this.ids = {};
     this.royals = { J: '11', Q: '12', K: '13', A: '14' };
   }
   startGame() {
@@ -72,13 +72,11 @@ class WarGame {
       .get(`api/players/${this.playerOne}`)
       .then((res) => {
         if (!res.data) {
-          axios
-            .post('api/players', { name: this.playerOne })
-            .then((res) => {
-                this.playerIds["p1"] = res.data.id
-            });
+          axios.post('api/players', { name: this.playerOne }).then((res) => {
+            this.ids[this.playerOne] = res.data.id;
+          });
         } else {
-            this.playerIds["p1"] = res.data.id
+          this.ids[this.playerOne] = res.data.id;
         }
       })
       .then(() =>
@@ -86,17 +84,19 @@ class WarGame {
           if (!res.data) {
             axios
               .post('api/players', { name: this.playerTwo })
-              .then((res) => this.playerIds["p2"] = res.data.id);
+              .then((res) => (this.ids[this.playerTwo] = res.data.id));
           } else {
-            this.playerIds["p2"] = res.data.id
+            this.ids[this.playerTwo] = res.data.id;
           }
         })
       )
       .finally(() => {
-        axios.post('api/games').then(() => console.log('game added'));
-        let deck = new Deck();
-        deck.deal(this.playerOneHand, this.playerTwoHand);
-        this.playGame();
+        axios.post('api/games').then((res) => {
+          this.ids['gameId'] = res.data.id;
+          let deck = new Deck();
+          deck.deal(this.playerOneHand, this.playerTwoHand);
+          this.playGame();
+        });
       });
   }
 
@@ -104,21 +104,17 @@ class WarGame {
     while (this.playerOneHand.length && this.playerTwoHand.length) {
       this.playHand();
     }
-
     const winner =
       this.playerOneHand.length === 0 ? this.playerTwo : this.playerOne;
-    // const losingHand =
-    //   winner === this.playerTwo ? this.playerOneHand : this.playerTwoHand;
-    // const winningHand =
-    //   winner === this.playerTwo
-    //     ? this.playerTwoHand
-    //     : this.playerOneHand;
-
-    // GET to playerId
-    // PUT to Game completed
-    // PUT to player increment win
-    // POST to result gameId + winner
+    axios
+      .put(`api/games/${this.ids.gameId}`)
+      .then(console.log('game has concluded'));
+    axios.put(`api/players/${winner}`).then((res) => console.log(res.data));
+    axios
+      .post(`api/games/result/${this.ids.gameId}/${this.ids[winner]}`)
+      .then((res) => console.log('result', res.data));
   }
+
   playHand() {
     /* card: [suit <string> , num <string> ] */
     let cardOne = this.playerOneHand.shift();

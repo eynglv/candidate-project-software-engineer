@@ -46,11 +46,11 @@ router.delete('/', async (req, res, next) => {
   }
 });
 
-router.post('/result/:gameId/:winner', async (req, res, next) => {
+router.post('/result/:gameId/:winnerId', async (req, res, next) => {
   try {
     const gameId = req.params.gameId;
-    const winner = req.params.winner;
-    const result = await Result.create({ gameId: gameId, winner: winner });
+    const winnerId = req.params.winnerId;
+    const result = await Result.create({ gameId: gameId, winner: winnerId });
     res.json(result);
   } catch (err) {
     next(err);
