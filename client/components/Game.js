@@ -191,9 +191,9 @@ const startGame = () => {
 
 const Game = () => {
   return (
-    <div>
-      <h1>This is a Game of War</h1>
-      <button onClick={startGame}>Play Game!</button>
+    <div style = {{display: "flex", flexDirection: "column"}}>
+      <h1 style ={{textAlign: "center", marginTop: "20px"}}>This is a Game of War</h1>
+      <button onClick={startGame} style = {{margin: "auto"}}>Play Game!</button>
     </div>
   );
 };
