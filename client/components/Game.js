@@ -7,7 +7,7 @@ class Deck {
       heart: ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'],
       diamond: [
         '2',
-        '3',
+        '3', 
         '4',
         '5',
         '6',
@@ -106,13 +106,17 @@ class WarGame {
     }
     const winner =
       this.playerOneHand.length === 0 ? this.playerTwo : this.playerOne;
+
     axios
       .put(`api/games/${this.ids.gameId}`)
-      .then(console.log('game has concluded'));
-    axios.put(`api/players/${winner}`).then((res) => console.log(res.data));
-    axios
-      .post(`api/games/result/${this.ids.gameId}/${this.ids[winner]}`)
-      .then((res) => console.log('result', res.data));
+      .then(console.log('game has concluded'))
+      .then(() => axios.put(`api/players/${winner}`).then(console.log(winner)))
+      .then(() => {
+        axios
+          .post(`api/games/result/${this.ids.gameId}/${this.ids[winner]}`)
+          .then(console.log('result updated'));
+      });
+
   }
 
   playHand() {
@@ -191,9 +195,16 @@ const startGame = () => {
 
 const Game = () => {
   return (
-    <div style = {{display: "flex", flexDirection: "column"}}>
-      <h1 style ={{textAlign: "center", marginTop: "20px"}}>This is a Game of War</h1>
-      <button onClick={startGame} style = {{margin: "auto"}}>Play Game!</button>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <h1 style={{ textAlign: 'center', marginTop: '20px' }}>
+        This is a Game of War
+      </h1>
+      <button
+        onClick={startGame}
+        style={{ margin: 'auto' }}
+      >
+        Play Game!
+      </button>
     </div>
   );
 };
