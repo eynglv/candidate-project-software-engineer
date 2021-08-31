@@ -25,9 +25,9 @@ router.get('/:playerName', async (req, res, next) => {
   }
 });
 
-router.post('/:playerName', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const name = req.params.playerName;
+    const name = req.body.name;
     const newPlayer = await Player.create({
       name: name,
     });

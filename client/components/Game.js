@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Deck {
   constructor() {
@@ -63,12 +64,40 @@ class WarGame {
     this.playerTwo = playerTwo;
     this.playerOneHand = [];
     this.playerTwoHand = [];
+    this.playerIds = {}
     this.royals = { J: '11', Q: '12', K: '13', A: '14' };
   }
   startGame() {
-    let deck = new Deck();
-    deck.deal(this.playerOneHand, this.playerTwoHand);
-    this.playGame();
+    axios
+      .get(`api/players/${this.playerOne}`)
+      .then((res) => {
+        if (!res.data) {
+          axios
+            .post('api/players', { name: this.playerOne })
+            .then((res) => {
+                this.playerIds["p1"] = res.data.id
+            });
+        } else {
+            this.playerIds["p1"] = res.data.id
+        }
+      })
+      .then(() =>
+        axios.get(`api/players/${this.playerTwo}`).then((res) => {
+          if (!res.data) {
+            axios
+              .post('api/players', { name: this.playerTwo })
+              .then((res) => this.playerIds["p2"] = res.data.id);
+          } else {
+            this.playerIds["p2"] = res.data.id
+          }
+        })
+      )
+      .finally(() => {
+        axios.post('api/games').then(() => console.log('game added'));
+        let deck = new Deck();
+        deck.deal(this.playerOneHand, this.playerTwoHand);
+        this.playGame();
+      });
   }
 
   playGame() {
@@ -84,7 +113,11 @@ class WarGame {
     //   winner === this.playerTwo
     //     ? this.playerTwoHand
     //     : this.playerOneHand;
-    return winner;
+
+    // GET to playerId
+    // PUT to Game completed
+    // PUT to player increment win
+    // POST to result gameId + winner
   }
   playHand() {
     /* card: [suit <string> , num <string> ] */
@@ -119,10 +152,10 @@ class WarGame {
           ? this.playerTwoHand
           : this.playerOneHand;
       winningHand.push(...playedCards, ...losingHand);
-      if (losingHand === this.playerOneHand){
-          this.playerOneHand = []
+      if (losingHand === this.playerOneHand) {
+        this.playerOneHand = [];
       } else {
-          this.playerTwoHand = []
+        this.playerTwoHand = [];
       }
       return;
     }
@@ -150,15 +183,21 @@ class WarGame {
 }
 
 const startGame = () => {
-  const game = new WarGame('BOB', 'MAY');
+  let cp1;
+  let cp2;
+  while (cp1 === cp2) {
+    cp1 = prompt('Please Enter A Name', 'BOB');
+    cp2 = prompt('Please enter another name', 'MAY');
+  }
+  const game = new WarGame(cp1, cp2);
   game.startGame();
 };
 
 const Game = () => {
   return (
     <div>
-      <h1>Play Game</h1>
-      <button onClick={startGame}>Blah</button>
+      <h1>This is a Game of War</h1>
+      <button onClick={startGame}>Play Game!</button>
     </div>
   );
 };
