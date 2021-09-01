@@ -110,7 +110,7 @@ class WarGame {
     axios
       .put(`api/games/${this.ids.gameId}`)
       .then(console.log('game has concluded'))
-      .then(() => axios.put(`api/players/${winner}`).then(console.log(winner)))
+      .then(() => axios.put(`api/players/${winner}`).then(console.log("the winner is ", winner)))
       .then(() => {
         axios
           .post(`api/games/result/${this.ids.gameId}/${this.ids[winner]}`)
