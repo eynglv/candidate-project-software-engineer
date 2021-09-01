@@ -1,8 +1,7 @@
 ## Introduction
 * After forking, cloning, and installing all node dependencies
-	1. Create a database named **War** with the command `createdb War` or with psql commands `CREATE DATABASE WAR`
+	1. Create a database named **War** with the command `createdb War` or with psql commands `CREATE DATABASE WAR` or with `npm run createdb`
 	2. Run `npm run start:server` to start the server and webpack. 
-
 
 
 
