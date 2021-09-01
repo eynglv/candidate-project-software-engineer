@@ -1,34 +1,12 @@
 ## Introduction
+* After forking, cloning, and installing all node dependencies
+	1. Create a database named **War** with the command `createdb War` or with psql commands `CREATE DATABASE WAR`
+	2. Run `npm run start:server` to start the server and webpack. 
+	
 
-Welcome to Aspen Capital's Software Engineer challenge. This assignment will help us better assess your technical and design skills. We recommend that you focus on the requirements listed below, and if time permitting, work on any additional features of your own choosing. These additional features can be new, functional pieces within the application or even relevant design artifacts.
+### Notes
+* If I had more time, I would definitely implement a more thorough UI. I prioritized rendering the game's logic and making sure it worked without fail and connected to the API successfully. 
 
-## Background
-
-Your task is to implement an application that plays the card game of [War](https://en.wikipedia.org/wiki/War_(card_game))
-
-Use the rules [here](https://bicyclecards.com/how-to-play/war/)
-
-## Requirements
-
-### High Level
-
-* Create a RESTful service with two endpoints:
-
-	* An endpoint to start a game. Two simulated players will play out the game.
-	* An endpoint to get lifetime wins for each player stored in a database.
-
-* You should include some basic tests along with the application code.
-
-### Technical
-
-* The service can be created in the language/framework of your choice.
-* You can use any db technology you like.
-
-Bonuses for providing:
-
-* A Docker image or a link to a cloud deployment of the service.
-* A simple UI showing the game being played.
-* You can also implement variations of the basic game if you have time.
 
 ## Submission
 * Your submission should be accessible in a public git repository that includes a README.md with all the pertinent information of how to run your application. 
